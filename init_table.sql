@@ -1,4 +1,4 @@
--- CREATE SCHEMA course_work;
+CREATE SCHEMA course_work;
 
 SET SEARCH_PATH = course_work;
 
