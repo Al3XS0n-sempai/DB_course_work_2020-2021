@@ -31,7 +31,7 @@ CREATE TABLE GAME (
     shop_id INT REFERENCES SHOP(id),
     currency_id INT REFERENCES CURRENCY(id),
     game_nm VARCHAR(100),
-    price_amt INT,
+    price_amt DECIMAL(10, 2),
     description_txt TEXT
 );
 
