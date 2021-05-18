@@ -1,0 +1,56 @@
+-- CREATE SCHEMA course_work;
+
+SET SEARCH_PATH = course_work;
+
+-- Создание таблиц
+DROP TABLE IF EXISTS SHOP CASCADE;
+CREATE TABLE SHOP (
+    id serial PRIMARY KEY,
+    country_nm VARCHAR(100)
+);
+
+DROP TABLE IF EXISTS CURRENCY CASCADE;
+CREATE TABLE CURRENCY (
+    id SERIAL PRIMARY KEY,
+    currency_cd VARCHAR(3),
+    currency_rate DECIMAL(10, 2)
+);
+
+DROP TABLE IF EXISTS "USER" CASCADE;
+CREATE TABLE "USER" (
+    id serial PRIMARY KEY,
+    shop_id INT REFERENCES SHOP(id),
+    currency_id INT REFERENCES CURRENCY(id),
+    user_nm VARCHAR(100),
+    balance_amt DECIMAL(10, 2)
+);
+
+DROP TABLE IF EXISTS GAME CASCADE;
+CREATE TABLE GAME (
+    id serial PRIMARY KEY,
+    shop_id INT REFERENCES SHOP(id),
+    currency_id INT REFERENCES CURRENCY(id),
+    game_nm VARCHAR(100),
+    price_amt INT,
+    description_txt TEXT
+);
+
+DROP TABLE IF EXISTS PURCHASE CASCADE;
+CREATE TABLE PURCHASE (
+    id serial PRIMARY KEY,
+    user_id INT REFERENCES "USER"(id),
+    shop_id INT REFERENCES SHOP(id),
+    purchase_dt DATE
+);
+
+DROP TABLE IF EXISTS PURCHASE_CONTENT CASCADE;
+CREATE TABLE PURCHASE_CONTENT (
+    purchase_id INT REFERENCES PURCHASE(id),
+    game_id INT REFERENCES GAME(id)
+);
+
+DROP TABLE IF EXISTS PURCHASED_GAME CASCADE;
+CREATE TABLE PURCHASED_GAME (
+    user_id INT REFERENCES "USER"(id),
+    game_id INT REFERENCES GAME(id)
+);
